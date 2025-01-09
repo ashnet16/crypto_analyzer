@@ -1,11 +1,12 @@
 from collector.src.collect_service import CMCService
+import pandas as pd
+import json
 
-# Press ⌘F8 to toggle the breakpoint.
 
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print(CMCService().cmc_fetch_token_metadata())
+    recent_dump = json.loads(CMCService().cmc_fetch_historical_data('2024-12-09'))
+    df = pd.json_normalize(recent_dump['data'])
+    df.to_csv('cryptocurrency_data.csv', index=False)
 
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+

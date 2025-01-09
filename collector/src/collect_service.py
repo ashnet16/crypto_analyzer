@@ -1,7 +1,7 @@
 import json
 
 from collector.src.collector_api_client import CMCApiClient
-from collector.src.constants import CHOICE_CURRENCY, JSON_HEADER, CONVERT, SLUG, CRYPTO_WATCH_LIST
+from collector.src.constants import CHOICE_CURRENCY, JSON_HEADER, CONVERT, SLUG, CRYPTO_WATCH_LIST, TIME_PERIOD_PARAM
 
 
 class CMCService:
@@ -19,6 +19,13 @@ class CMCService:
         data = {SLUG: CRYPTO_WATCH_LIST}
         return self.client.cmc_fetch_token_metadata(headers=JSON_HEADER, data=data)
 
+    def cmc_fetch_gainer_and_losers(self):
+        data = {TIME_PERIOD_PARAM: '30d'}
+        return self.client.cmc_fetch_top_gainers_and_losers(headers=JSON_HEADER, data=data)
+
+    def cmc_fetch_historical_data(self, period):
+        data = { 'date' :  {period}, 'convert' : CHOICE_CURRENCY, 'sort': 'market_cap' }
+        return self.client.cmc_fetch_historical_snapshot(headers=JSON_HEADER, data=data)
 
 class CGService:
     pass

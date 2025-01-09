@@ -3,7 +3,7 @@ import json
 from collector.src.constants import approved_urls
 import logging
 import requests
-from collector.src.constants import CMC_PROD_ENDPOINT, LATEST_TOKENS_CMC, CRYPTO_META_DATA_CMC, LATEST_QUOTES_CMC
+from collector.src.constants import CMC_PROD_ENDPOINT, LATEST_TOKENS_CMC, CRYPTO_META_DATA_CMC, LATEST_QUOTES_CMC, GAINERS_AND_LOSERS_CMC, HISTORICAL
 import os
 
 
@@ -38,6 +38,13 @@ class CMCApiClient(CollectorApiClient):
 
     def cmc_fetch_latest_token_quote(self, **params):
         return self.fetch_data(LATEST_QUOTES_CMC, headers=params.get('headers'), data=params.get('data'))
+
+    def cmc_fetch_top_gainers_and_losers(self, **params):
+        return self.fetch_data(GAINERS_AND_LOSERS_CMC, headers=params.get('headers'), data=params.get('data') )
+
+    def cmc_fetch_historical_snapshot(self, **params):
+        return self.fetch_data(HISTORICAL, headers=params.get('headers'), data=params.get('data'))
+
 
 
 """ Coin Gekco API Client"""
